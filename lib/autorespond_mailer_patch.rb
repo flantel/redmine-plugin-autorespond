@@ -11,6 +11,7 @@ module AutorespondMailerPatch
             'Issue-Id' => issue.id,
             'Issue-Author' => issue.author.login
         redmine_headers 'Issue-Assignee' => issue.assigned_to.login if issue.assigned_to
+	redmine_headers 'Project-Specific-Sender' => issue.project.email if issue.project.email
         message_id issue
         references issue
         @content = content

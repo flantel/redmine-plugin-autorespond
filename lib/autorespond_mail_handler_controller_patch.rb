@@ -15,7 +15,7 @@ module AutorespondMailHandlerControllerPatch
         email = options.delete(:email)
         result = MailHandler.receive(email, options)
         logger.info "autoresponse plugin"
-        if result.is_a?(Issue) and result.author.anonymous? and result.project.enabled_modules.any?{|mod| mod.name == :autorespond.to_s }
+        if result.is_a?(Issue) and result.project.enabled_modules.any?{|mod| mod.name == :autorespond.to_s }
             from = address_from_email(email)
             Mailer.custom_mail(result, from, Setting.plugin_autorespond['autorespond_body']).deliver
         end
